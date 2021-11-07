@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using NUnit.Framework;
 
 namespace Problems.LinkedList
 {
     [TestFixture]
+    [NonParallelizable]
     public sealed class AddTwoNumbers
     {
         private static readonly ListNode q1 = new ListNode(3, new ListNode(4, new ListNode(2)));
@@ -13,23 +17,37 @@ namespace Problems.LinkedList
         private static readonly List<ListNode> q = new List<ListNode> {q1, q2};
 
         private static string FileName = nameof(AddTwoNumbers);
-        private StreamReader reader;
+        private static IEnumerable<ListNode> testCases;
 
-        [OneTimeSetUp]
-        public void SetUp()
+        private static StreamReader reader;
+
+        public AddTwoNumbers()
         {
             var namespaceName = typeof(AddTwoNumbers).Namespace;
-            this.reader = new StreamReader($"{namespaceName.Split(".")[1]}\\TestData\\{FileName}.txt");
+            var t = MethodBase.GetCurrentMethod().DeclaringType;
+            reader = new StreamReader($"{namespaceName.Split(".")[1]}\\TestData\\{FileName}.txt");
+            testCases = Read();
         }
 
-        [OneTimeTearDown]
-        public void TearDown()
+        private static IEnumerable<ListNode> Read()
         {
-            this.reader.Dispose();
+            var line = reader.ReadLine();
+            var split = line.Split().Select(int.Parse).ToArray();
+            var listNode = new ListNode(split[0]);
+            var iterator = listNode;
+            for (var i = 1; i < split.Length; i++)
+            {
+                var newNode = new ListNode(split[i]);
+                iterator.next = newNode;
+                iterator = newNode;
+            }
+
+            yield return listNode;
         }
 
         [Test]
-        public void Test()
+        [TestCaseSource(nameof(testCases))]
+        public void Test(ListNode listNode)
         {
             var actualResult = AddTwoNumbers1();
         }
@@ -48,7 +66,7 @@ namespace Problems.LinkedList
             var l2 = l23;
 
             ListNode l = null;
-            ListNode iterrator = null;
+            ListNode iterator = null;
             var add = 0;
             while (l1 != null && l2 != null)
             {
@@ -61,12 +79,12 @@ namespace Problems.LinkedList
                 if (l == null)
                 {
                     l = node;
-                    iterrator = node;
+                    iterator = node;
                 }
                 else
                 {
-                    iterrator.next = node;
-                    iterrator = node;
+                    iterator.next = node;
+                    iterator = node;
                 }
 
                 l1 = l1.next;
@@ -86,8 +104,8 @@ namespace Problems.LinkedList
 
                 var node = new ListNode(value);
 
-                iterrator.next = node;
-                iterrator = node;
+                iterator.next = node;
+                iterator = node;
 
                 l1 = l1.next;
             }
@@ -95,7 +113,7 @@ namespace Problems.LinkedList
             if (add > 0)
             {
                 var node = new ListNode(add);
-                iterrator.next = node;
+                iterator.next = node;
             }
 
             return l;
@@ -105,9 +123,9 @@ namespace Problems.LinkedList
         {
             public int val;
 
-            public ListNode next;
+            public ListNode? next;
 
-            public ListNode(int val = 0, ListNode next = null)
+            public ListNode(int val = 0, ListNode? next = null)
             {
                 this.val = val;
                 this.next = next;
