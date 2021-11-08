@@ -5,27 +5,48 @@ using NUnit.Framework;
 namespace Problems.LinkedList
 {
     [TestFixture]
+    [NonParallelizable]
     public sealed class AddTwoNumbers
     {
         private static readonly ListNode q1 = new ListNode(3, new ListNode(4, new ListNode(2)));
         private static readonly ListNode q2 = new ListNode(3, new ListNode(4, new ListNode(2)));
 
         private static readonly List<ListNode> q = new List<ListNode> {q1, q2};
-
-        private static string FileName = nameof(AddTwoNumbers);
-        private StreamReader reader;
-
-        [OneTimeSetUp]
-        public void SetUp()
+        
+        private static readonly StreamReader Reader;
+        private static IEnumerable<TestCase> TestCases;
+        
+        static AddTwoNumbers()
         {
             var namespaceName = typeof(AddTwoNumbers).Namespace;
-            this.reader = new StreamReader($"{namespaceName.Split(".")[1]}\\TestData\\{FileName}.txt");
+            Reader = new StreamReader($"{namespaceName.Split(".")[1]}\\TestData\\{nameof(AddTwoNumbers)}.txt");
+            TestCases = 
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            this.reader.Dispose();
+            Reader.Dispose();
+        }
+
+        private static IEnumerable<TestCase> ReadTestCases()
+        {
+            while (!Reader.EndOfStream)
+            {
+                
+            }
+        }
+
+        private static TestCase ReadTestCase()
+        {
+            var line = Reader.ReadLine();
+
+        }
+
+        private static ListNode ParseListNode(string fileLine)
+        {
+            var split = fileLine.Split();
+
         }
 
         [Test]
@@ -111,6 +132,22 @@ namespace Problems.LinkedList
             {
                 this.val = val;
                 this.next = next;
+            }
+        }
+
+        private class TestCase
+        {
+            public readonly ListNode First;
+
+            public readonly ListNode Second;
+
+            public readonly ListNode ExpectedResult;
+
+            public TestCase(ListNode first, ListNode second, ListNode expectedResult)
+            {
+                this.First = first;
+                this.Second = second;
+                this.ExpectedResult = expectedResult;
             }
         }
     }
