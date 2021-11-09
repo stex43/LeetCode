@@ -15,19 +15,23 @@ namespace Problems.String
 
             yield return new TestCaseData("bbbbb")
                 .SetName("{a} {m}")
-                .Returns(1); ;
+                .Returns(1);
 
             yield return new TestCaseData("pwwkew")
                 .SetName("{a} {m}")
-                .Returns(3); ;
+                .Returns(3);
 
             yield return new TestCaseData("")
                 .SetName("{a} {m}")
-                .Returns(0); ;
+                .Returns(0);
 
             yield return new TestCaseData("abcde")
                 .SetName("{a} {m}")
-                .Returns(5); ;
+                .Returns(5);
+
+            yield return new TestCaseData("abba")
+                .SetName("{a} {m}")
+                .Returns(2);
         }
 
         [TestCaseSource(nameof(TestCases))]
@@ -41,57 +45,67 @@ namespace Problems.String
 
             while (right < s.Length)
             {
-                if (!set.Contains(s[right]))
-                {
-                    set.Add(s[right]);
-                    right++;
-                    continue;
-                }
-
-                maxLength = Math.Max(maxLength, right - left);
-
-                while (s[left] != s[right])
+                while (set.Contains(s[right]))
                 {
                     set.Remove(s[left]);
                     left++;
                 }
 
+                maxLength = Math.Max(maxLength, right - left + 1);
+
+                if (!set.Contains(s[right]))
+                {
+                    set.Add(s[right]);
+                }
+
                 right++;
-                left++;
             }
 
-            return Math.Max(maxLength, right - left);
+            return maxLength;
         }
 
         [TestCaseSource(nameof(TestCases))]
-        public int Mine_Second(string s)
+        public int Leetcode_Dictionary(string s)
         {
-            var chars = new Dictionary<char, int>();
+            var chars = new Dictionary<char, int>(s.Length);
 
             var left = 0;
-            var right = 0;
             var maxLength = 0;
 
-            while (right < s.Length)
+            for (var right = 0; right < s.Length; right++)
             {
-                var currentChar = s[right];
-
-                if (!chars.ContainsKey(currentChar))
+                if (chars.ContainsKey(s[right]))
                 {
-                    chars[currentChar] = right;
-                    right++;
-                    continue;
+                    left = Math.Max(left, chars[s[right]] + 1);
                 }
 
-                maxLength = Math.Max(maxLength, right - left);
-
-                left = chars[currentChar] + 1;
-                chars[currentChar] = right;
-
-                right++;
+                maxLength = Math.Max(maxLength, right - left + 1);
+                chars[s[right]] = right;
             }
 
-            return Math.Max(maxLength, right - left);
+            return maxLength;
+        }
+
+        [TestCaseSource(nameof(TestCases))]
+        public int Leetcode_BruteForce(string s)
+        {
+            var maxLength = 0;
+
+            for (var i = 0; i < s.Length; i++)
+            {
+                for (var j = i; j < s.Length; j++)
+                {
+                    var substring = s.Substring(i, j - i + 1);
+                    var set = new HashSet<char>(substring);
+
+                    if (substring.Length == set.Count)
+                    {
+                        maxLength = Math.Max(substring.Length, maxLength);
+                    }
+                }
+            }
+
+            return maxLength;
         }
     }
 }
