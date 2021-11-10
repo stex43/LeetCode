@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace Problems.HasMaps
+namespace Problems.HasMap
 {
     [TestFixture]
     public sealed class TwoSum
