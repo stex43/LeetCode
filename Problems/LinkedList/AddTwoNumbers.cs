@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Problems.LinkedList
@@ -7,110 +7,126 @@ namespace Problems.LinkedList
     [TestFixture]
     public sealed class AddTwoNumbers
     {
-        private static readonly ListNode q1 = new ListNode(3, new ListNode(4, new ListNode(2)));
-        private static readonly ListNode q2 = new ListNode(3, new ListNode(4, new ListNode(2)));
-
-        private static readonly List<ListNode> q = new List<ListNode> {q1, q2};
-
-        private static string FileName = nameof(AddTwoNumbers);
-        private StreamReader reader;
-
-        [OneTimeSetUp]
-        public void SetUp()
+        private static IEnumerable<TestCaseData> TestCases()
         {
-            var namespaceName = typeof(AddTwoNumbers).Namespace;
-            this.reader = new StreamReader($"{namespaceName.Split(".")[1]}\\TestData\\{FileName}.txt");
+            yield return new TestCaseData(new ListNode(3, 4, 2), new ListNode(4, 6, 5))
+                .SetName("{a} {m}")
+                .Returns(new ListNode(7, 0, 8));
+
+            yield return new TestCaseData(new ListNode(0), new ListNode(0))
+                .SetName("{a} {m}")
+                .Returns(new ListNode(0));
+
+            yield return new TestCaseData(new ListNode(9, 9, 9, 9, 9, 9, 9), new ListNode(9, 9, 9, 9))
+                .SetName("{a} {m}")
+                .Returns(new ListNode(8, 9, 9, 9, 0, 0, 0, 1));
+
+            yield return new TestCaseData(new ListNode(0, 1), new ListNode(0, 1, 2))
+                .SetName("{a} {m}")
+                .Returns(new ListNode(0, 2, 2));
+
+            yield return new TestCaseData(new ListNode(), new ListNode(0, 1))
+                .SetName("{a} {m}")
+                .Returns(new ListNode(0, 1));
+
+            yield return new TestCaseData(new ListNode(9, 9), new ListNode(1))
+                .SetName("{a} {m}")
+                .Returns(new ListNode(0, 0, 1));
         }
 
-        [OneTimeTearDown]
-        public void TearDown()
+        [TestCaseSource(nameof(TestCases))]
+        public ListNode? Mine_First(ListNode? l1, ListNode? l2)
         {
-            this.reader.Dispose();
-        }
+            var dummy = new ListNode();
+            var current = dummy;
 
-        [Test]
-        public void Test()
-        {
-            var actualResult = AddTwoNumbers1();
-        }
+            var carry = 0;
 
-        public ListNode AddTwoNumbers1()
-        {
-            var l11 = new ListNode(3);
-            var l12 = new ListNode(4, l11);
-            var l13 = new ListNode(2, l12);
-
-            var l21 = new ListNode(4);
-            var l22 = new ListNode(6, l21);
-            var l23 = new ListNode(5, l22);
-
-            var l1 = l13;
-            var l2 = l23;
-
-            ListNode l = null;
-            ListNode iterrator = null;
-            var add = 0;
-            while (l1 != null && l2 != null)
+            while (l1 != null || l2 != null)
             {
-                var value = l1.val + l2.val + add;
-                add = value / 10;
-                value %= 10;
+                var value = carry;
 
-                var node = new ListNode(value);
-
-                if (l == null)
+                if (l1 != null)
                 {
-                    l = node;
-                    iterrator = node;
-                }
-                else
-                {
-                    iterrator.next = node;
-                    iterrator = node;
+                    value += l1.val;
                 }
 
-                l1 = l1.next;
-                l2 = l2.next;
+                if (l2 != null)
+                {
+                    value += l2.val;
+                }
+
+                carry = value / 10;
+
+                current.next = new ListNode(value % 10);
+                current = current.next;
+
+                l1 = l1?.next;
+                l2 = l2?.next;
             }
 
-            if (l1 == null)
+            if (carry > 0)
             {
-                l1 = l2;
+                current.next = new ListNode(carry);
             }
 
-            while (l1 != null)
-            {
-                var value = l1.val + add;
-                add = value / 10;
-                value %= 10;
-
-                var node = new ListNode(value);
-
-                iterrator.next = node;
-                iterrator = node;
-
-                l1 = l1.next;
-            }
-
-            if (add > 0)
-            {
-                var node = new ListNode(add);
-                iterrator.next = node;
-            }
-
-            return l;
+            return dummy.next;
         }
 
         public class ListNode
         {
             public int val;
 
-            public ListNode next;
+            public ListNode? next;
 
-            public ListNode(int val = 0, ListNode next = null)
+            public ListNode(int val = 0, ListNode? next = null)
             {
                 this.val = val;
                 this.next = next;
+            }
+
+            // for test use only
+            public ListNode(params int[] values)
+            {
+                this.val = values[0];
+                var current = this;
+
+                for (var i = 1; i < values.Length; i++)
+                {
+                    current.next = new ListNode(values[i]);
+                    current = current.next;
+                }
+            }
+
+            public override string ToString()
+            {
+                var values = new List<int>();
+                var current = this;
+                while (current != null)
+                {
+                    values.Add(current.val);
+                    current = current.next;
+                }
+
+                return string.Join(' ', values);
+            }
+
+            protected bool Equals(ListNode other)
+            {
+                return val == other.val && Equals(next, other.next);
+            }
+
+            public override bool Equals(object? obj)
+            {
+                if (ReferenceEquals(null, obj)) return false;
+                if (ReferenceEquals(this, obj)) return true;
+                if (obj.GetType() != this.GetType()) return false;
+                return Equals((ListNode)obj);
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(val, next);
             }
         }
     }
