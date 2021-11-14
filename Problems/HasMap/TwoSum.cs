@@ -41,7 +41,7 @@ namespace Problems.HasMap
         }
 
         [TestCaseSource(nameof(TestCases))]
-        public int[] Mine_BruteForce(int[] nums, int target)
+        public int[] Leetcode_BruteForce(int[] nums, int target)
         {
             for (var i = 0; i < nums.Length; i++)
             {

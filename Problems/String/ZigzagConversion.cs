@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 
-namespace Problems
+namespace Problems.String
 {
     [TestFixture]
     public sealed class ZigzagConversion
@@ -25,22 +26,97 @@ namespace Problems
         [TestCaseSource(nameof(TestCases))]
         public string Mine_First(string s, int numRows)
         {
+            if (numRows == 1)
+            {
+                return s;
+            }
+
             var stringBuilder = new StringBuilder(s.Length);
+            
+            var zigZagSize = numRows * 2 - 2;
             for (var i = 0; i < numRows; i++)
             {
                 if (i == 0 || i == numRows - 1)
                 {
-                    var j = i;
-
-                    while (j < s.Length)
+                    for (var j = i; j < s.Length; j += zigZagSize)
                     {
                         stringBuilder.Append(s[j]);
-                        j += numRows - 2;
+                    }
+
+                    continue;
+                }
+
+                var step = i * 2;
+                for (var j = i; j < s.Length; j += step)
+                {
+                    stringBuilder.Append(s[j]);
+                    step = zigZagSize - step;
+                }
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        [TestCaseSource(nameof(TestCases))]
+        public string Leetcode_SortByRow(string s, int numRows)
+        {
+            if (numRows == 1)
+            {
+                return s;
+            }
+
+            var rowCount = Math.Min(numRows, s.Length);
+            var rowStrings = new StringBuilder?[rowCount];
+            var i = 0;
+            var isGoingDown = false;
+
+            foreach (var symbol in s)
+            {
+                if (i == 0 || i == numRows - 1)
+                {
+                    isGoingDown = !isGoingDown;
+                }
+
+                rowStrings[i] ??= new StringBuilder(s.Length);
+
+                rowStrings[i]!.Append(symbol);
+
+                i += isGoingDown ? 1 : -1;
+            }
+
+            var stringBuilder = new StringBuilder(s.Length);
+            foreach (var rowString in rowStrings)
+            {
+                stringBuilder.Append(rowString);
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        [TestCaseSource(nameof(TestCases))]
+        public string Leetcode_VisitByRow(string s, int numRows)
+        {
+            if (numRows == 1)
+            {
+                return s;
+            }
+
+            var stringBuilder = new StringBuilder(s.Length);
+
+            var zigZagSize = numRows * 2 - 2;
+            for (var i = 0; i < numRows; i++)
+            {
+                for (var j = 0; i + j < s.Length; j += zigZagSize)
+                {
+                    stringBuilder.Append(s[i + j]);
+                    if (i != 0 && i != numRows - 1 && j + zigZagSize - i < s.Length)
+                    {
+                        stringBuilder.Append(s[j + zigZagSize - i]);
                     }
                 }
             }
 
-            return string.Empty;
+            return stringBuilder.ToString();
         }
     }
 }
