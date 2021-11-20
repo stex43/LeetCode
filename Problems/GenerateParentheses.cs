@@ -15,6 +15,7 @@ namespace Problems
 
             yield return new TestCaseData(3)
                 .SetName("{a} {m}")
+                
                 .Returns(new List<string> { "((()))", "(()())", "(())()", "()(())", "()()()" });
 
             yield return new TestCaseData(1)
@@ -69,7 +70,9 @@ namespace Problems
                 availableParentheses[')']++;
             }
         }
-        
+
+        #region Leetcode_Backtrack
+
         [TestCaseSource(nameof(TestCases))]
         public List<string> Leetcode_Backtrack(int n)
         {
@@ -79,7 +82,7 @@ namespace Problems
             }
 
             var result = new List<string>();
-            GetCombinations(new StringBuilder(), result, 0, 0, n);
+            GetCombinations(new StringBuilder(2 * n), result, 0, 0, n);
 
             return result;
         }
@@ -107,6 +110,96 @@ namespace Problems
 
                 stringBuilder.Remove(stringBuilder.Length - 1, 1);
             }
+        }
+
+        #endregion
+
+        #region Leetcode_BruteForce
+
+        [TestCaseSource(nameof(TestCases))]
+        public List<string> Leetcode_BruteForce(int n)
+        {
+            if (n == 0)
+            {
+                return new List<string> { string.Empty };
+            }
+
+            var result = new List<string>();
+            GetCombinations(new StringBuilder(), result, n);
+
+            return result;
+        }
+
+        private void GetCombinations(StringBuilder stringBuilder, List<string> result, int max)
+        {
+            if (stringBuilder.Length == max * 2)
+            {
+                if (IsRight(stringBuilder))
+                {
+                    result.Add(stringBuilder.ToString());
+                }
+
+                return;
+            }
+
+            stringBuilder.Append('(');
+            GetCombinations(stringBuilder, result, max);
+            stringBuilder.Remove(stringBuilder.Length - 1, 1);
+
+            stringBuilder.Append(')');
+            GetCombinations(stringBuilder, result, max);
+            stringBuilder.Remove(stringBuilder.Length - 1, 1);
+        }
+
+        private bool IsRight(StringBuilder combination)
+        {
+            var balance = 0;
+            for (var i = 0; i < combination.Length; i++)
+            {
+                var symbol = combination[i];
+
+                if (symbol == '(')
+                {
+                    balance++;
+                    continue;
+                }
+
+                balance--;
+                if (balance < 0)
+                {
+                    return false;
+                }
+            }
+
+            return balance == 0;
+        }
+
+        #endregion
+
+        [TestCaseSource(nameof(TestCases))]
+        public List<string> Leetcode_ClosureNumber(int n)
+        {
+            var result = new List<string>();
+
+            if (n == 0)
+            {
+                result.Add("");
+            }
+            else
+            {
+                for (var c = 0; c <= n - 1; c++)
+                {
+                    foreach (var left in Leetcode_ClosureNumber(c))
+                    {
+                        foreach (var right in Leetcode_ClosureNumber(n - c - 1))
+                        {
+                            result.Add("(" + left + ")" + right);
+                        }
+                    }
+                }
+            }
+            
+            return result;
         }
     }
 }
