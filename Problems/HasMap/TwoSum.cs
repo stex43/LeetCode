@@ -9,15 +9,15 @@ namespace Problems.HasMap
         private static IEnumerable<TestCaseData> TestCases()
         {
             yield return new TestCaseData(new[] { 2, 7, 11, 15 }, 9)
-                .SetName("{a} {m}")
+                .SetName("{a}")
                 .Returns(new[] { 0, 1 });
 
             yield return new TestCaseData(new[] { 3, 2, 4 }, 6)
-                .SetName("{a} {m}")
+                .SetName("{a}")
                 .Returns(new[] { 1, 2 });
 
             yield return new TestCaseData(new[] { 3, 3 }, 6)
-                .SetName("{a} {m}")
+                .SetName("{a}")
                 .Returns(new[] { 0, 1 });
         }
 

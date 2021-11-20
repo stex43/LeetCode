@@ -10,18 +10,19 @@ namespace Problems
         private static IEnumerable<TestCaseData> TestCases()
         {
             yield return new TestCaseData(2)
-                .SetName("{a} {m}")
-                .Returns(new List<string> { "(())", "()()" });
+                .SetName("{a}")
+                .Returns(new TestUnorderedList<string> { "(())", "()()" });
 
             yield return new TestCaseData(3)
-                .SetName("{a} {m}")
-                
-                .Returns(new List<string> { "((()))", "(()())", "(())()", "()(())", "()()()" });
+                .SetName("{a}")
+                .Returns(new TestUnorderedList<string> { "((()))", "(()())", "(())()", "()(())", "()()()" });
 
             yield return new TestCaseData(1)
-                .SetName("{a} {m}")
-                .Returns(new List<string> { "()" });
+                .SetName("{a}")
+                .Returns(new TestUnorderedList<string> { "()" });
         }
+
+        #region Mine
 
         [TestCaseSource(nameof(TestCases))]
         public List<string> Mine_First(int n)
@@ -70,6 +71,8 @@ namespace Problems
                 availableParentheses[')']++;
             }
         }
+
+        #endregion
 
         #region Leetcode_Backtrack
 

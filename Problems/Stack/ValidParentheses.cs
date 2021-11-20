@@ -9,39 +9,39 @@ namespace Problems.Stack
         private static IEnumerable<TestCaseData> TestCases()
         {
             yield return new TestCaseData("()")
-                .SetName("{a} {m}")
+                .SetName("{a}")
                 .Returns(true);
 
             yield return new TestCaseData("()[]{}")
-                .SetName("{a} {m}")
+                .SetName("{a}")
                 .Returns(true);
 
             yield return new TestCaseData("(]")
-                .SetName("{a} {m}")
+                .SetName("{a}")
                 .Returns(false);
 
             yield return new TestCaseData("([)]")
-                .SetName("{a} {m}")
+                .SetName("{a}")
                 .Returns(false);
 
             yield return new TestCaseData("{[]}")
-                .SetName("{a} {m}")
+                .SetName("{a}")
                 .Returns(true);
 
             yield return new TestCaseData("}")
-                .SetName("{a} {m}")
+                .SetName("{a}")
                 .Returns(false);
 
             yield return new TestCaseData("(((((())))))")
-                .SetName("{a} {m}")
+                .SetName("{a}")
                 .Returns(true);
 
             yield return new TestCaseData("(((((((()")
-                .SetName("{a} {m}")
+                .SetName("{a}")
                 .Returns(false);
 
             yield return new TestCaseData("((()(())))")
-                .SetName("{a} {m}")
+                .SetName("{a}")
                 .Returns(true);
         }
 
