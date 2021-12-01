@@ -88,14 +88,17 @@ namespace Problems.LinkedList
             // for test use only
             public ListNode(params int[] values)
             {
-                this.val = values[0];
-                var current = this;
+                var dummyHead = new ListNode();
+                var current = dummyHead;
 
-                for (var i = 1; i < values.Length; i++)
+                foreach (var value in values)
                 {
-                    current.next = new ListNode(values[i]);
+                    current.next = new ListNode(value);
                     current = current.next;
                 }
+
+                this.next = dummyHead.next.next;
+                this.val = dummyHead.next.val;
             }
 
             public override string ToString()

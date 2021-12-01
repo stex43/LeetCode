@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace Problems.HasMap
+namespace Problems.HashMap
 {
     [TestFixture]
     public sealed class TwoSum
@@ -49,7 +49,7 @@ namespace Problems.HasMap
                 {
                     if (nums[i] + nums[j] == target)
                     {
-                        return new[] {i, j};
+                        return new[] { i, j };
                     }
                 }
             }

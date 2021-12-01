@@ -194,7 +194,7 @@ namespace Problems
                 {
                     foreach (var left in Leetcode_ClosureNumber(c))
                     {
-                        foreach (var right in Leetcode_ClosureNumber(n - c - 1))
+                        foreach (var right in Leetcode_ClosureNumber(n - 1 - c))
                         {
                             result.Add("(" + left + ")" + right);
                         }
