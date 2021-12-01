@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
+using ListNode = Problems.LinkedList.Models.LinkedList;
 
 namespace Problems.LinkedList
 {
@@ -71,66 +71,6 @@ namespace Problems.LinkedList
             }
 
             return dummy.next;
-        }
-
-        public class ListNode
-        {
-            public int val;
-
-            public ListNode? next;
-
-            public ListNode(int val = 0, ListNode? next = null)
-            {
-                this.val = val;
-                this.next = next;
-            }
-
-            // for test use only
-            public ListNode(params int[] values)
-            {
-                var dummyHead = new ListNode();
-                var current = dummyHead;
-
-                foreach (var value in values)
-                {
-                    current.next = new ListNode(value);
-                    current = current.next;
-                }
-
-                this.next = dummyHead.next.next;
-                this.val = dummyHead.next.val;
-            }
-
-            public override string ToString()
-            {
-                var values = new List<int>();
-                var current = this;
-                while (current != null)
-                {
-                    values.Add(current.val);
-                    current = current.next;
-                }
-
-                return string.Join(' ', values);
-            }
-
-            protected bool Equals(ListNode other)
-            {
-                return val == other.val && Equals(next, other.next);
-            }
-
-            public override bool Equals(object? obj)
-            {
-                if (ReferenceEquals(null, obj)) return false;
-                if (ReferenceEquals(this, obj)) return true;
-                if (obj.GetType() != this.GetType()) return false;
-                return Equals((ListNode)obj);
-            }
-
-            public override int GetHashCode()
-            {
-                return HashCode.Combine(val, next);
-            }
         }
     }
 }

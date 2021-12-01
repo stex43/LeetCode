@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
+using ListNode = Problems.LinkedList.Models.CircularLinkedList;
 
 namespace Problems.LinkedList
 {
@@ -60,44 +60,6 @@ namespace Problems.LinkedList
             }
 
             return false;
-        }
-
-        public class ListNode
-        {
-            public int val;
-
-            public ListNode? next;
-
-            public ListNode(int val = 0, ListNode? next = null)
-            {
-                this.val = val;
-                this.next = next;
-            }
-
-            // for test use only
-            public ListNode(int pos, params int[] values)
-            {
-                var dummyHead = new ListNode();
-                var current = dummyHead;
-
-                ListNode? cycled = null;
-
-                for (var i = 0; i < values.Length; i++)
-                {
-                    current.next = new ListNode(values[i]);
-                    current = current.next;
-
-                    if (pos == i)
-                    {
-                        cycled = current;
-                    }
-                }
-
-                current.next = cycled;
-
-                this.next = dummyHead.next.next;
-                this.val = dummyHead.next.val;
-            }
         }
     }
 }
