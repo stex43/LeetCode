@@ -4,9 +4,9 @@ using FluentAssertions;
 
 namespace Problems
 {
-    public sealed class TestUnorderedList<T> : List<T>, IEquatable<List<T>>
+    public sealed class TestUnorderedCollection<T> : List<T>, IEquatable<IList<T>>
     {
-        public bool Equals(List<T>? other)
+        public bool Equals(IList<T>? other)
         {
             try
             {

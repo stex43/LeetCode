@@ -11,15 +11,15 @@ namespace Problems
         {
             yield return new TestCaseData(2)
                 .SetName("{a}")
-                .Returns(new TestUnorderedList<string> { "(())", "()()" });
+                .Returns(new TestUnorderedCollection<string> { "(())", "()()" });
 
             yield return new TestCaseData(3)
                 .SetName("{a}")
-                .Returns(new TestUnorderedList<string> { "((()))", "(()())", "(())()", "()(())", "()()()" });
+                .Returns(new TestUnorderedCollection<string> { "((()))", "(()())", "(())()", "()(())", "()()()" });
 
             yield return new TestCaseData(1)
                 .SetName("{a}")
-                .Returns(new TestUnorderedList<string> { "()" });
+                .Returns(new TestUnorderedCollection<string> { "()" });
         }
 
         #region Mine
