@@ -10,11 +10,11 @@ namespace Problems.HashMap
         private static IEnumerable<TestCaseData> TestCases()
         {
             yield return new TestCaseData(new[] { 1, 2, 2, 1 }, new[] { 2, 2 })
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(new[] { 2 });
 
             yield return new TestCaseData(new[] { 4, 9, 5 }, new[] { 9, 4, 9, 8, 4 })
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(new TestUnorderedCollection<int> { 9, 4 });
         }
 

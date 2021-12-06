@@ -10,23 +10,23 @@ namespace Problems.LinkedList
         private static IEnumerable<TestCaseData> TestCases()
         {
             yield return new TestCaseData(new ListNode(1, 1, 2))
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(new ListNode(1, 2));
 
             yield return new TestCaseData(new ListNode(1, 1, 2, 3, 3))
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(new ListNode(1, 2, 3));
 
             yield return new TestCaseData(new ListNode(1, 1, 1))
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(new ListNode(1));
 
             yield return new TestCaseData(new ListNode(1, 2, 3))
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(new ListNode(1, 2, 3));
 
             yield return new TestCaseData(null)
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(null);
         }
 

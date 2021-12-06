@@ -11,15 +11,15 @@ namespace Problems.String
         private static IEnumerable<TestCaseData> TestCases()
         {
             yield return new TestCaseData("PAYPALISHIRING", 3)
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns("PAHNAPLSIIGYIR");
 
             yield return new TestCaseData("PAYPALISHIRING", 4)
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns("PINALSIGYAHRPI");
 
             yield return new TestCaseData("A", 1)
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns("A");
         }
 

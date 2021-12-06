@@ -10,15 +10,15 @@ namespace Problems
         private static IEnumerable<TestCaseData> TestCases()
         {
             yield return new TestCaseData(2)
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(new TestUnorderedCollection<string> { "(())", "()()" });
 
             yield return new TestCaseData(3)
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(new TestUnorderedCollection<string> { "((()))", "(()())", "(())()", "()(())", "()()()" });
 
             yield return new TestCaseData(1)
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(new TestUnorderedCollection<string> { "()" });
         }
 

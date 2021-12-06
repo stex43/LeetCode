@@ -10,27 +10,27 @@ namespace Problems.String
         private static IEnumerable<TestCaseData> TestCases()
         {
             yield return new TestCaseData("abcabcbb")
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(3);
 
             yield return new TestCaseData("bbbbb")
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(1);
 
             yield return new TestCaseData("pwwkew")
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(3);
 
             yield return new TestCaseData("")
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(0);
 
             yield return new TestCaseData("abcde")
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(5);
 
             yield return new TestCaseData("abba")
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(2);
         }
 

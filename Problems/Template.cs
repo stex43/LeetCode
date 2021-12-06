@@ -9,7 +9,7 @@ namespace Problems
         private static IEnumerable<TestCaseData> TestCases()
         {
             yield return new TestCaseData()
-                .SetName("{a}")
+                .SetName("{a} {m}")
                 .Returns(0);
         }
 
