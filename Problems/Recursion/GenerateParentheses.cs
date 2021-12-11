@@ -2,7 +2,7 @@
 using System.Text;
 using NUnit.Framework;
 
-namespace Problems
+namespace Problems.Recursion
 {
     [TestFixture]
     public sealed class GenerateParentheses
