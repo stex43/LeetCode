@@ -1,2 +1,2 @@
 # LeetCode
-The name says by itself. 💻
+The name speaks for itself. 💻
