@@ -13,7 +13,7 @@
         }
 
         // for test use only
-        public CircularLinkedList(int pos, params int[] values)
+        internal CircularLinkedList(int pos, params int[] values)
         {
             var dummyHead = new CircularLinkedList();
             var current = dummyHead;

@@ -79,7 +79,7 @@ namespace Problems.LinkedList
 
         private ListNode ReverseList(ListNode head)
         {
-            if (head == null || head.next == null)
+            if (head.next == null)
             {
                 return head;
             }

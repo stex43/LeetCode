@@ -179,6 +179,8 @@ namespace Problems.Recursion
 
         #endregion
 
+        #region Leetcode_ClosureNumber
+
         [TestCaseSource(nameof(TestCases))]
         public List<string> Leetcode_ClosureNumber(int n)
         {
@@ -204,5 +206,7 @@ namespace Problems.Recursion
             
             return result;
         }
+
+        #endregion
     }
 }

@@ -23,7 +23,7 @@ namespace Problems.Arrays
         {
             var intervals = GetIntervals(values);
 
-            Array.Sort(intervals, (x, y) => x[0].CompareTo(y[0]));
+            System.Array.Sort(intervals, (x, y) => x[0].CompareTo(y[0]));
 
             for (var i = 1; i < intervals.Length; i++)
             {

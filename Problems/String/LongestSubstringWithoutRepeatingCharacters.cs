@@ -32,6 +32,10 @@ namespace Problems.String
             yield return new TestCaseData("abba")
                 .SetName("{a} {m}")
                 .Returns(2);
+
+            yield return new TestCaseData("wabba")
+                .SetName("{a} {m}")
+                .Returns(3);
         }
 
         [TestCaseSource(nameof(TestCases))]

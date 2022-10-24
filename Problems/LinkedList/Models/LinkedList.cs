@@ -17,7 +17,7 @@ namespace Problems.LinkedList.Models
         }
 
         // for test use only
-        public LinkedList(params int[] values)
+        internal LinkedList(params int[] values)
         {
             var dummyHead = new LinkedList();
             var current = dummyHead;

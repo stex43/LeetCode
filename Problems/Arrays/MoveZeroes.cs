@@ -24,7 +24,7 @@ namespace Problems.Arrays
         [TestCaseSource(nameof(TestCases))]
         public int[] Mine_First(int[] nums)
         {
-            Move(nums);
+            this.Move(nums);
 
             return nums;
         }
