@@ -24,13 +24,6 @@ namespace Problems.Arrays
         [TestCaseSource(nameof(TestCases))]
         public int[] Mine_First(int[] nums)
         {
-            this.Move(nums);
-
-            return nums;
-        }
-
-        private void Move(int[] nums)
-        {
             var insertPosition = 0;
 
             foreach (var num in nums)
@@ -46,6 +39,8 @@ namespace Problems.Arrays
             {
                 nums[i] = 0;
             }
+
+            return nums;
         }
     }
 }
