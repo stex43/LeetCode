@@ -12,8 +12,8 @@ namespace Problems.LinkedList
             yield return new TestCaseData(new ListNode(1, 2, 3, 4, 5))
                 .SetName("{a} {m}")
                 .Returns(new ListNode(3, 4, 5));
-            
-            yield return new TestCaseData(new ListNode(1,2,3,4,5,6))
+
+            yield return new TestCaseData(new ListNode(1, 2, 3, 4, 5, 6))
                 .SetName("{a} {m}")
                 .Returns(new ListNode(4, 5, 6));
         }
