@@ -56,12 +56,9 @@ namespace Problems.String
                 }
 
                 maxLength = Math.Max(maxLength, right - left + 1);
-
-                if (!set.Contains(s[right]))
-                {
-                    set.Add(s[right]);
-                }
-
+                
+                set.Add(s[right]);
+                
                 right++;
             }
 
@@ -84,6 +81,7 @@ namespace Problems.String
                 }
 
                 maxLength = Math.Max(maxLength, right - left + 1);
+
                 chars[s[right]] = right;
             }
 
