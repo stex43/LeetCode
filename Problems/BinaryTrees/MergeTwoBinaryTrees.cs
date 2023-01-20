@@ -8,25 +8,21 @@ namespace Problems.BinaryTrees
     {
         private static IEnumerable<TestCaseData> TestCases()
         {
-            yield return new TestCaseData()
+            yield return new TestCaseData(
+                    new TreeNode(1, new TreeNode(3, new TreeNode(5)), new TreeNode(2)),
+                    new TreeNode(2, 
+                        new TreeNode(1, null, new TreeNode(4)),
+                        new TreeNode(3, left: null, new TreeNode(7))))
                 .SetName("{a} {m}")
-                .Returns(0);
+                .Returns(new TreeNode(3, 
+                    new TreeNode(4, new TreeNode(5), new TreeNode(4)),
+                    new TreeNode(5, null, new TreeNode(7))));
         }
 
-        // [TestCaseSource(nameof(TestCases))]
-        // public TreeNode? Mine_First(TreeNode root1, TreeNode root2)
-        // {
-        //     return MergeTrees(root1, root2);
-        // }
-
-        
-        [Test]
-        public void Mine_First()
+        [TestCaseSource(nameof(TestCases))]
+        public TreeNode? Mine_First(TreeNode root1, TreeNode root2)
         {
-            var root1 = new TreeNode(1, new TreeNode(3, new TreeNode(5)), new TreeNode(2));
-            var root2 = new TreeNode(2, new TreeNode(1, left: null, new TreeNode(4)),
-                new TreeNode(3, left: null, new TreeNode(7)));
-            var r = MergeTrees(root1, root2);
+            return MergeTrees(root1, root2);
         }
 
         private static TreeNode? MergeTrees(TreeNode? root1, TreeNode? root2)
